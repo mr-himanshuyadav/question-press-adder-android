@@ -37,16 +37,18 @@ class MainActivity : AppCompatActivity() {
                 try {
                     val response = RetrofitInstance.api.loginUser(username, password)
 
+                    // Find this block in your MainActivity.kt
                     if (response.isSuccessful && response.body() != null) {
-                        // API call was successful
                         val loginResponse = response.body()!!
                         val welcomeMessage = "Login Successful! Welcome, ${loginResponse.user_display_name}"
                         Toast.makeText(this@MainActivity, welcomeMessage, Toast.LENGTH_LONG).show()
 
-                        // Navigate to the EditorActivity
-                        val intent = Intent(this@MainActivity, EditorActivity::class.java)
+                        // **REPLACE THE NAVIGATION CODE WITH THIS**
+                        val intent = Intent(this@MainActivity, EditorActivity::class.java).apply {
+                            putExtra("AUTH_TOKEN", loginResponse.token)
+                        }
                         startActivity(intent)
-                        finish() // Optional: Closes the login screen so the user can't go back to it
+                        finish()
 
                     } else {
                         // API call failed (e.g., wrong credentials)
