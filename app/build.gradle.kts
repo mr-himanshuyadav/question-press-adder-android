@@ -58,6 +58,6 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     // Retrofit for networking
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
-// Gson converter for Retrofit to handle JSON
+    // Gson converter for Retrofit to handle JSON
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 }
