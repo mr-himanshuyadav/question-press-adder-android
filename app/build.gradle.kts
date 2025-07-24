@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.himanshuyadav.questionadder"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.himanshuyadav.questionadder"
