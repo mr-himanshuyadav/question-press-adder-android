@@ -1,20 +1,19 @@
 package com.himanshuyadav.questionadder
 
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.activity.ComponentActivity
 import androidx.lifecycle.lifecycleScope
 import com.himanshuyadav.questionadder.network.RetrofitInstance
 import kotlinx.coroutines.launch
 import java.io.IOException
+import android.content.Intent
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // This is the line that loads your XML layout.
         setContentView(R.layout.activity_main)
 
         // Get references to the UI elements from our XML layout
@@ -44,19 +43,21 @@ class MainActivity : ComponentActivity() {
                         val welcomeMessage = "Login Successful! Welcome, ${loginResponse.user_display_name}"
                         Toast.makeText(this@MainActivity, welcomeMessage, Toast.LENGTH_LONG).show()
 
-                        // TODO: Save the token and navigate to the next screen
+                        // Navigate to the EditorActivity
+                        val intent = Intent(this@MainActivity, EditorActivity::class.java)
+                        startActivity(intent)
+                        finish() // Optional: Closes the login screen so the user can't go back to it
 
                     } else {
                         // API call failed (e.g., wrong credentials)
-                        val errorBody = response.errorBody()?.string() ?: "Unknown error"
-                        Toast.makeText(this@MainActivity, "Login Failed: $errorBody", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@MainActivity, "Login Failed: Invalid credentials", Toast.LENGTH_LONG).show()
                     }
                 } catch (e: IOException) {
                     // Handle network errors (e.g., no internet connection)
                     Toast.makeText(this@MainActivity, "Network Error: Please check your connection", Toast.LENGTH_LONG).show()
                 } catch (e: Exception) {
                     // Handle other unexpected errors
-                    Toast.makeText(this@MainActivity, "An unexpected error occurred: ${e.message}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@MainActivity, "An unexpected error occurred", Toast.LENGTH_LONG).show()
                 }
             }
         }
